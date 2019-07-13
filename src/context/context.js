@@ -275,6 +275,19 @@ class ProductProvider extends Component {
     if (company !== "all") {
       tempProducts = tempProducts.filter(item => item.company === company);
     }
+    //filtering based on shipping
+    if (shipping) {
+      tempProducts = tempProducts.filter(item => item.freeShipping === true);
+    }
+    if (search.length > 0) {
+      tempProducts = tempProducts.filter(item => {
+        let tempSearch = search.toLowerCase();
+        let tempTitle = item.title.toLowercase().slice(0, search.length);
+        if (tempSearch === tempTitle) {
+          return item;
+        }
+      });
+    }
 
     this.setState({ filteredProducts: tempProducts });
   };
